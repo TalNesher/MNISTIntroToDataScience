@@ -128,7 +128,7 @@ x_reconstructed = x_reconstructed.reshape(28, 28)
 
 #Plot the original and reconstructed images
 # plt.subplot(1, 2, 1)
-# plt.imshow(x_train[i], cmap='gray')
+# plt.imshow(x_train[i], cmap = 'gray')
 # plt.title('Original image')
 # plt.subplot(1, 2, 2)
 # plt.imshow(x_reconstructed, cmap='gray')
