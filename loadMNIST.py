@@ -136,10 +136,9 @@ x_reconstructed = x_reconstructed.reshape(28, 28)
 # plt.show()
 
 #______________________________c______________________________
-print("starting c")
-def kmeans(X, k, centers_kmeans ,max_iter = 3):
+
+def kmeans(X, k, centers_kmeans ,max_iter = 10):
     for i in range (max_iter):
-        print(i)
         assigned_centers = assign_to_closest_center(X, centers_kmeans)
         centers_kmeans = recompute_centers(X, assigned_centers, k, centers_kmeans)
         # plt.scatter(X[:, 0], X[:, 1], c = assigned_centers, cmap = 'viridis')
@@ -196,12 +195,12 @@ def find_max_index(arr):
     return max_index
 
 #______________________________d______________________________
-print("starting d")
 
+print("first run of kmeans:")
 #run kmean with p = 40 and randomize centers
 k = 10
 
-# define each row  to be image, and each coulmn to be element
+# define each row to be image, and each coulmn to be element
 w = w.T
 
 # Initialize the centroids randomly
@@ -210,8 +209,8 @@ assigned_centers, centers1 = kmeans(w, k, centroids)
 assigned_centers = np.array(assigned_centers)
 
 #______________________________e______________________________
-print("starting e")
 
+#Assign a digit to a cluster using the most common label in that cluster
 def give_centers_lebles(assigned_centers, y_train):
     sums_of_images_per_center = np.zeros((k, k))
     centers_to_labels = np.zeros(k)
@@ -228,7 +227,6 @@ def give_centers_lebles(assigned_centers, y_train):
 centers_to_labels = give_centers_lebles(assigned_centers, y_train)
 
 #______________________________f______________________________
-print("starting f")
 
 def caculate_succses(centers_to_labels, assigned_centers, y_train, w):
     succsus = 0
@@ -239,22 +237,23 @@ def caculate_succses(centers_to_labels, assigned_centers, y_train, w):
     return (succsus / w.shape[0]) * 100
 
 succses_presents = caculate_succses(centers_to_labels, assigned_centers, y_train, w)
-print("succses rate is", succses_presents)
+print("the succses rate is", succses_presents, "precents")
 
 #______________________________g______________________________
-print("starting g")
 
+#running for three iterations to check if differant sets of random centroids yiled differant succses rates
+print("when chosing random centroids:")
 for i in range(3):
     centroids = np.random.uniform(low = -0.5, high = 0.5, size = (k, w.shape[1])) 
     assigned_centers, centers1 = kmeans(w, k, centroids)
     assigned_centers = np.array(assigned_centers)
     centers_to_labels = give_centers_lebles(assigned_centers, y_train)
     succses_presents = caculate_succses(centers_to_labels, assigned_centers, y_train, w)
-    print(i, 'has a ',succses_presents, 'precent sucsses rate')
+    print("iteration", i, 'has a succses rate of: ',succses_presents, "precents")
 
 #______________________________i______________________________
-print("starting i")
 
+#chosinig each starting centroid to be the mean of 10 images that are all labeld as the same number, for each number between 0 to 9
 centroids = np.zeros((10, w.shape[1]))
 for i in range(10):
         counter = 0
@@ -266,8 +265,6 @@ for i in range(10):
                 counter += 1
             index += 1
         centroids[i] = centroids[i] / 10
-
-print('starting kmeans')
 
 assigned_centers, centers1 = kmeans(w, k, centroids)
 assigned_centers = np.array(assigned_centers)
