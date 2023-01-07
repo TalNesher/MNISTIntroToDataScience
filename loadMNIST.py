@@ -106,7 +106,7 @@ Theta = np.dot(X, X.T) / m
 
 # Compute the eigendecomposition of the covariance matrix
 U, S, Ut = np.linalg.svd(Theta)
-S_squared=np.sqrt(S)
+S_squared = np.sqrt(S)
 
 # Plot the singular values
 # plt.plot(S_squared)
@@ -114,7 +114,7 @@ S_squared=np.sqrt(S)
 
 # Select the first p columns of U as Up
 p = 40
-Up = U[:,0:p]
+Up = U[:,:p]
 
 # Compute the reduced-sized vectors for each image. now each coulm in w represent a picture with 40 elements instead of 784
 w = np.dot(Up.T, X)
