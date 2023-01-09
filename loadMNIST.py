@@ -10,9 +10,8 @@ import random
 import matplotlib.pyplot as plt
 import math
 
-
 #
-# MNIST Data Loader Class
+# MNIST Data Loader 
 #
 class MnistDataloader(object):
     def __init__(self, training_images_filepath,training_labels_filepath,
